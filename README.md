@@ -6,6 +6,8 @@ Understanding body mechanics during physical activities like squats is essential
 
 Despite its importance, students and trainees often find it challenging to visualize and analyze COM dynamics during movement. Traditional methods, such as motion capture systems, are often **expensive**, **non-intuitive**, and **not widely accessible**.
 
+![Alt text](https://drive.google.com/uc?export=view&id=1gNL_n0C4Ga2sK7eFDlVuiszBQA3GooHG)
+ 
 ## 🎯 Objective
 
 **BioBalance** is an interactive, web-based learning tool designed to teach users—particularly students and trainees—how the **Center of Mass shifts during a squat**. The platform merges:
