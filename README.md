@@ -85,6 +85,10 @@ We developed a **comprehensive web-based platform** that bridges theoretical bio
 - User feedback reports indicating increased clarity in biomechanical concepts.
 
 ---
+## Video Demo
+[![Watch the demo](https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg)](https://drive.google.com/file/d/1j7OJFVhFcww6lYbCqYPurlRjK9WM0jLo/preview)
+
+ 
 
 ## 💬 Discussion and Conclusion
 
