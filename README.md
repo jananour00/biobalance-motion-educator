@@ -121,13 +121,3 @@ MIT License (or specify your preferred license here)
 
 Thanks to the development team, testers, and academic mentors who guided the project. Special credit to open-source libraries and frameworks like YOLOv5, Unity, and Flask for enabling this interactive solution.
 
----
-
-## 📬 Contact
-
-For feedback or collaboration inquiries, please contact:
-
-**[Your Name]**  
-[Your Email]  
-[LinkedIn / GitHub / Website]
-
