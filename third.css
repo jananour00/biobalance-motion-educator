@@ -1,0 +1,236 @@
+/* Reset and base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+  color: #eee;
+  min-height: 100vh;
+  line-height: 1.6;
+  padding-bottom: 40px;
+}
+
+/* Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+  z-index: 1000;
+  user-select: none;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+.logo .bio {
+  font-weight: 900;
+  font-size: 1.8rem;
+  color: #ff5252;
+  letter-spacing: 2px;
+  line-height: 1;
+  animation: pulseRed 3s infinite alternate;
+}
+
+.logo .balance {
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #fff;
+  letter-spacing: 1.5px;
+  margin-top: -6px;
+}
+
+.logo .tagline {
+  font-size: 0.85rem;
+  color: #bbb;
+  font-style: italic;
+  margin-top: 3px;
+  user-select: text;
+}
+
+/* Nav links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #ddd;
+  font-weight: 600;
+  font-size: 1rem;
+  position: relative;
+  padding: 6px 0;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: #ff5252;
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-links li a:hover,
+.nav-links li a:focus {
+  color: #ff5252;
+}
+
+.nav-links li a:hover::after,
+.nav-links li a:focus::after {
+  width: 100%;
+}
+
+/* Join button */
+.join-btn {
+  background: linear-gradient(270deg, #ff5252, #ff1744, #ff5252);
+  background-size: 600% 600%;
+  color: white;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(255, 82, 82, 0.7);
+  transition: box-shadow 0.3s ease;
+  animation: gradientShift 8s ease infinite;
+  user-select: none;
+}
+
+.join-btn:hover,
+.join-btn:focus {
+  box-shadow: 0 6px 24px rgba(255, 23, 68, 0.9);
+  outline: none;
+}
+
+/* Lectures container */
+.lectures-container {
+  max-width: 960px;
+  margin: 40px auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  padding: 0 20px;
+}
+
+/* Lecture card */
+.lecture-card {
+  background: #2a2a2a;
+  border-radius: 16px;
+  padding: 24px 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
+  cursor: pointer;
+  color: #eee;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: fadeUpIn 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.lecture-card:hover,
+.lecture-card:focus-within {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(255, 82, 82, 0.7);
+  outline: none;
+}
+
+.lecture-card h4 {
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #ff5252;
+  user-select: text;
+}
+
+.lecture-card p {
+  font-size: 1rem;
+  color: #ccc;
+  user-select: text;
+  line-height: 1.4;
+}
+
+/* Remove underline on anchor */
+a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  height: 100%;
+}
+
+/* Animations */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulseRed {
+  0% {
+    color: #ff5252;
+    text-shadow: 0 0 10px #ff5252;
+  }
+  100% {
+    color: #ff1744;
+    text-shadow: 0 0 20px #ff1744;
+  }
+}
+
+@keyframes fadeUpIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accessibility focus */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #ff5252;
+  outline-offset: 3px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+  }
+  .nav-links {
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .join-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Squat Analysis Report</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        h1 { color: #007BFF; }
+        img { width: 100%; max-width: 600px; }
+    </style>
+</head>
+<body>
+    <h1>Squat Performance Report</h1>
+    <p><strong>Average Knee Angle:</strong> {{ avg_angle }}°</p>
+    <p><strong>Advice:</strong> {{ advice }}</p>
+    <h2>Motion Graph</h2>
+    <img src="{{ plot_path }}" alt="Knee Angle Plot">
+</body>
+</html>

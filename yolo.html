@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Squat Analyzer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+    
+    video, canvas {
+      width: 100%;
+      max-width: 600px;
+      margin: 10px 0;
+    }
+    
+    #feedback {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #333;
+    }
+    </style>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/vision_bundle.js"></script>
+ 
+</head>
+<body>
+  <div class="container">
+    <h1>Squat Analyzer</h1>
+    <input type="file" id="videoUpload" accept="video/*" />
+    <video id="video" controls></video>
+    <canvas id="outputCanvas"></canvas>
+    <div id="feedback"></div>
+    <button id="generateReport">Generate Report</button>
+  </div>
+  <script src="java.js"></script>
+</body>
+</html>

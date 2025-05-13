@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Center of Mass Quiz - Interactive & Animated</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Base styles */
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #232526 0%, #414345 100%);
+      color: #f0f0f0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      align-items: center;
+    }
+    .container {
+      background-color: #222;
+      max-width: 700px;
+      width: 100%;
+      border-radius: 16px;
+      padding: 30px 40px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+      overflow: hidden;
+    }
+    h1 {
+      color: #ff5252;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    form {
+      user-select: none;
+    }
+    /* Question styles */
+    .question {
+      margin-bottom: 1.8rem;
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    .question.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .question p {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+    label {
+      display: block;
+      background: #2e2e2e;
+      margin: 6px 0;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      border: 2px solid transparent;
+      user-select: none;
+    }
+    label:hover:not(.disabled) {
+      background-color: #444;
+    }
+    input[type="radio"] {
+      margin-right: 12px;
+      transform: scale(1.2);
+      vertical-align: middle;
+      cursor: pointer;
+    }
+    input[type="radio"]:disabled {
+      cursor: default;
+    }
+    label.correct {
+      border-color: #4caf50;
+      background-color: #2a4d2a;
+      color: #b9f6ca;
+    }
+    label.incorrect {
+      border-color: #e53935;
+      background-color: #5a1e1e;
+      color: #ffcdd2;
+    }
+    label.disabled {
+      cursor: default;
+      color: #999;
+    }
+    /* Button styles */
+    button {
+      width: 100%;
+      padding: 14px 0;
+      background: linear-gradient(90deg, #ff5252 60%, #ff1744 100%);
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(255, 82, 82, 0.6);
+      transition: background 0.3s;
+      user-select: none;
+    }
+    button:disabled {
+      background: #555;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    button:hover:not(:disabled) {
+      background: linear-gradient(90deg, #ff1744 60%, #ff5252 100%);
+    }
+    /* Result box */
+    #result {
+      margin-top: 24px;
+      padding: 16px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      user-select: none;
+    }
+    #result.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    #result.correct {
+      background-color: #2e7d32;
+      color: #aaf0d1;
+      box-shadow: 0 0 15px #4caf50;
+    }
+    #result.incorrect {
+      background-color: #b71c1c;
+      color: #ffcdd2;
+      box-shadow: 0 0 15px #e53935;
+    }
+    /* Animations */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Center of Mass Quiz">
+    <h1>Center of Mass Quiz</h1>
+    <form id="quizForm" aria-live="polite" aria-atomic="true">
+      <div id="quizContent"></div>
+      <button type="button" id="submitBtn" aria-label="Submit your answers">Submit Answers</button>
+      <div id="result" role="alert" aria-live="assertive"></div>
+    </form>
+  </div>
+
+  <audio id="correctSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
+  <audio id="wrongSound" src="https://actions.google.com/sounds/v1/cartoon/woodpecker.ogg" preload="auto"></audio>
+
+  <script>
+    const questions = [
+      {
+        q: "What does the Center of Mass represent?",
+        a: "b",
+        options: [
+          "The heaviest part of the body",
+          "The point where all mass appears to act",
+          "The geometric center"
+        ]
+      },
+      {
+        q: "In prosthetic design, COM is important because:",
+        a: "b",
+        options: [
+          "It makes the prosthetic look good",
+          "It affects balance and natural movement",
+          "It increases weight of prosthetic"
+        ]
+      },
+      {
+        q: "What unit is COM measured in?",
+        a: "a",
+        options: [
+          "Meters",
+          "Kilograms",
+          "Newtons"
+        ]
+      },
+      {
+        q: "How does COM affect human posture?",
+        a: "b",
+        options: [
+          "It reduces energy usage",
+          "It determines stability",
+          "It increases flexibility"
+        ]
+      },
+      {
+        q: "COM shifts when:",
+        a: "c",
+        options: [
+          "The object spins",
+          "Gravity increases",
+          "Mass distribution changes"
+        ]
+      },
+      {
+        q: "In biomechanics, COM is important in:",
+        a: "c",
+        options: [
+          "Lighting",
+          "Temperature",
+          "Movement analysis"
+        ]
+      },
+      {
+        q: "Is COM always within the body?",
+        a: "c",
+        options: [
+          "Yes",
+          "Never",
+          "Not always"
+        ]
+      },
+      {
+        q: "COM affects which of the following?",
+        a: "b",
+        options: [
+          "Color of muscles",
+          "Balance and control",
+          "Heart rate"
+        ]
+      },
+      {
+        q: "What tool helps visualize COM?",
+        a: "a",
+        options: [
+          "Force plate",
+          "Thermometer",
+          "Blood pressure cuff"
+        ]
+      },
+      {
+        q: "When standing on one leg, COM moves:",
+        a: "c",
+        options: [
+          "Nowhere",
+          "Lower",
+          "Over the support leg"
+        ]
+      }
+    ];
+
+    const quizContent = document.getElementById("quizContent");
+    const submitBtn = document.getElementById("submitBtn");
+    const resultBox = document.getElementById("result");
+    const correctSound = document.getElementById("correctSound");
+    const wrongSound = document.getElementById("wrongSound");
+
+    // Render questions with animation delay
+    function renderQuiz() {
+      quizContent.innerHTML = questions.map((q, i) => {
+        return `
+          <section class="question" style="animation-delay:${i * 0.1}s" aria-labelledby="q${i+1}label" role="group" aria-describedby="q${i+1}desc">
+            <p id="q${i+1}label">${i + 1}. ${q.q}</p>
+            ${q.options.map((opt, j) => `
+              <label>
+                <input type="radio" name="q${i + 1}" value="${String.fromCharCode(97 + j)}" aria-describedby="q${i+1}desc" />
+                <span>${opt}</span>
+              </label>
+            `).join('')}
+            <span id="q${i+1}desc" class="sr-only">Select one answer</span>
+          </section>
+        `;
+      }).join('');
+      // Add visible class to trigger fade-in animation
+      Array.from(document.querySelectorAll('.question')).forEach((el, idx) => {
+        setTimeout(() => el.classList.add('visible'), idx * 100);
+      });
+    }
+
+    renderQuiz();
+
+    function checkAnswers() {
+      let score = 0;
+      const allQuestions = document.querySelectorAll('.question');
+      // Disable submit button to prevent multiple submits
+      submitBtn.disabled = true;
+
+      allQuestions.forEach((questionEl, i) => {
+        const selectedInput = questionEl.querySelector(`input[name="q${i + 1}"]:checked`);
+        const userAnswer = selectedInput ? selectedInput.value : null;
+        const correctAnswer = questions[i].a;
+
+        // Disable all inputs
+        questionEl.querySelectorAll('input').forEach(input => input.disabled = true);
+
+        // Highlight answers
+        questionEl.querySelectorAll('label').forEach(label => {
+          const input = label.querySelector('input');
+          const val = input.value;
+          label.classList.remove('correct', 'incorrect', 'disabled');
+          label.classList.add('disabled');
+
+          if (val === correctAnswer) {
+            label.classList.add('correct');
+          }
+          if (userAnswer === val && userAnswer !== correctAnswer) {
+            label.classList.add('incorrect');
+          }
+        });
+
+        if (userAnswer === correctAnswer) score++;
+      });
+
+      // Show result with animation
+      resultBox.classList.remove('correct', 'incorrect', 'visible');
+      setTimeout(() => {
+        if (score === questions.length) {
+          resultBox.textContent = `🎉 Perfect! You got ${score} out of ${questions.length} correct.`;
+          resultBox.classList.add('correct', 'visible');
+          correctSound.play();
+        } else {
+          resultBox.textContent = `✅ You got ${score} out of ${questions.length}. Review the highlighted answers and try again!`;
+          resultBox.classList.add('incorrect', 'visible');
+          wrongSound.play();
+        }
+      }, 300);
+    }
+
+    submitBtn.addEventListener('click', () => {
+      // Check if all questions answered
+      const unanswered = Array.from(document.querySelectorAll('.question')).some((q, i) => {
+        return !q.querySelector(`input[name="q${i + 1}"]:checked`);
+      });
+      if (unanswered) {
+        alert("Please answer all questions before submitting.");
+        return;
+      }
+      checkAnswers();
+    });
+  </script>
+</body>
+</html>
