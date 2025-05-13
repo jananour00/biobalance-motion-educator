@@ -113,7 +113,7 @@ We developed a **comprehensive web-based platform** that bridges theoretical bio
 
 ## 📚 License
 
-MIT License (or specify your preferred license here)
+MIT License 
 
 ---
 
